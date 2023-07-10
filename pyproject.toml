@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "tracsa_utils"
+version = "0.1"
+description = "reusable admin features for tracsa projects"
+authors = ["Luis Morales <lmorales@tracsa.com.mx>"]
+license = "mit"
+readme = "README.md"
+packages = [{include = "tracsa_utils"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+setuptools = "^68.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+create-license = "^2.1.1"
+
+[build-system]
+requires = ["poetry-core", "setuptools>=40.8.0"]
+build-backend = "setuptools.build_meta"
