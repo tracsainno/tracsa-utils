@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tracsa_utils"
-version = "0.1.2"
+version = "0.2"
 description = "reusable admin features for tracsa projects"
 authors = ["Luis Morales <lmorales@tracsa.com.mx>"]
 license = "mit"
