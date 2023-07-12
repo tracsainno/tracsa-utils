@@ -1,0 +1,41 @@
+<p class="file-upload">
+  {% if src %}
+    Currently: 
+    <a class="block" href="{{src.url}}">{{src}}</a>
+  {% endif %}
+<br>
+Change:
+<input type="file" name="{{field_name}}" id="id_{{field_name}}" accept="image/*" required>
+<img
+  src="{% if src %}{{ src.url }}{% endif %}"
+  id="image-thumbnail-{{ field_name }}"
+  style="width: 250px; height: auto; margin-left: 30px;{% if not src %} display:none {% endif %}"
+>
+</p>
+
+<script>
+  function changeThumbnail() {
+    const fieldName = "{{ field_name }}";
+    document
+      .getElementById(`id_${fieldName}`)
+      .addEventListener("change", function (e) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          let img_preview = document.getElementById(`image-thumbnail-${fieldName}`);
+          img_preview.src = e.target.result;
+          img_preview.style.display='block';
+        };
+        reader.readAsDataURL(this.files[0]);
+      });
+  }
+
+  function docReady(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      setTimeout(fn, 1);
+
+    } else {
+      document.addEventListener("DOMContentLoaded", fn);
+    }
+  }
+  docReady(changeThumbnail);
+</script>

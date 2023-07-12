@@ -35,3 +35,28 @@ Quick start
                 'my_n1ed_field': N1EDCKEditorWidget()
             }
     ```
+
+=====
+Preview Image
+=====
+
+1. Add "tracsa_admin" to your INSTALLED_APPS setting like this:
+
+    INSTALLED_APPS = [
+        ...
+        'tracsa_admin',
+    ]
+
+
+2. Use widget in your form:
+    from tracsa_admin.widgets import ImagePreviewWidget
+
+    ```
+    class MyModelForm(ModelForm):
+        class Meta:
+            model = MyModel
+            fields = '__all__'
+            widgets = {
+                'my_image_field': ImagePreviewWidget
+            }
+    ```
