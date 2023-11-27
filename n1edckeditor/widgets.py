@@ -12,7 +12,7 @@ class N1EDCKEditorWidget(CKEditorWidget):
         remove_plugins='iframe',
         external_plugin_resources=[(
             'N1ED-editor',
-            '/static/plugins/N1ED-editor/',
+            f'{settings.STATIC_URL}plugins/N1ED-editor/',
             'plugin.js',
         )],
         *args,
