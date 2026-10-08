@@ -1,0 +1,330 @@
+/*
+Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+/*
+editor.css
+============
+
+This is he heart of the skin system. This is the file loaded by the editor to
+style all elements inside its main interface.
+
+To make it easier to maintain, instead of including all styles here, we import
+other files.
+*/
+
+/* "Reset" styles, necessary to avoid the editor UI being broken by external CSS. */
+@import url("reset.css");
+
+/* Styles the main interface structure (holding box). */
+@import url("mainui.css");
+
+/* Styles all "panels", which are the floating elements that appear when
+   opening toolbar combos, menu buttons, context menus, etc. */
+@import url("panel.css");
+
+/* Styles the color panel displayed by the color buttons. */
+@import url("colorpanel.css");
+
+/* Styles to toolbar. */
+@import url("toolbar.css");
+
+/* Styles menus, which are lists of selectable items (context menu, menu button). */
+@import url("menu.css");
+
+/* Styles toolbar combos. */
+@import url("richcombo.css");
+
+/* Styles the elements path bar, available at the bottom of the editor UI.*/
+@import url("elementspath.css");
+
+/* Contains hard-coded presets for "configurable-like" userOptions of the UI
+   (e.g. display labels on specific buttons) */
+@import url("presets.css");
+
+/* Styles for notifications. */
+@import url("notification.css");
+
+@import url("flat-blue.css");
+
+/* Important!
+   To avoid showing the editor UI while its styles are still not available, the
+   editor creates it with visibility:hidden. Here, we restore the UI visibility. */
+.cke_chrome
+{
+	visibility: inherit;
+}
+
+/* For accessibility purposes, several "voice labels" are present in the UI.
+   These are usually <span> elements that show not be visible, but that are
+   used by screen-readers to announce other elements. Here, we hide these
+   <spans>, in fact. */
+.cke_voice_label
+{
+	display: none;
+}
+
+legend.cke_voice_label
+{
+	display: none;
+}
+
+/***************************/
+
+.cke {
+    box-shadow: none !important;
+}
+
+.cke_top {
+	background: var(--ck-color-base-background);
+	/*padding: 0 var(--ck-spacing-small);*/
+	padding: 0;
+	border-bottom: 1px solid var(--ck-color-toolbar-border);
+	position: relative;
+}
+/*.cke_top:before {
+	content:"";
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background: var(--ck-color-toolbar-border);
+	top: 39px;
+	left: 0;
+}
+.cke_top:after {
+	content:"";
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background: var(--ck-color-toolbar-border);
+	top: 78px;
+	left: 0;
+}*/
+.cke.cke_float {
+	margin-left: -1px;
+}
+.cke_float .cke_top {
+    /*border: 1px solid #aaa !important;*/
+    outline: none !important;
+}
+
+.cke .cke_toolgroup,
+.cke .cke_combo_button,
+.cke .cke_button {
+	border-radius: var(--ck-border-radius);
+	/*margin-top: var(--ck-spacing-small);*/
+	/*margin-right: var(--ck-spacing-small);*/
+	/*margin-bottom: var(--ck-spacing-small);*/
+	margin: var(--ck-spacing-small);
+}
+
+.cke .cke_toolgroup {
+    background-image: none !important;
+    box-shadow: none !important;
+	border-top: none!important;
+	border-bottom: none!important;
+	border-right: 1px solid #bcbcbc!important;
+	border-left: none!important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.cke .cke_combo_button {
+    background-image: none !important;
+    box-shadow: none !important;
+    border: none !important;
+
+    /*padding: 2px 0 2px 0 !important;*/
+	margin-top: var(--ck-spacing-small);
+	margin-right: var(--ck-spacing-small);
+	margin-bottom: var(--ck-spacing-small);
+}
+
+.cke .cke_combo {
+    /*padding-bottom: 2px !important;
+    margin-bottom: 0 !important;*/
+}
+
+.cke .cke_combo_button,
+.cke .cke_button {}
+
+.cke a.cke_button_off:hover,
+.cke a.cke_button_off:focus,
+.cke a.cke_button_off:active {
+    border: none !important;
+    /*padding: 4px 6px !important;*/
+	padding: 4px;
+}
+
+.cke .cke_toolgroup a.cke_button_off:hover,
+.cke .cke_toolgroup a.cke_button_off:focus,
+.cke .cke_toolgroup a.cke_button_off:active,
+.cke .cke_toolgroup .cke_combo_button:hover,
+.cke .cke_toolgroup .cke_combo_button:focus,
+.cke .cke_toolgroup .cke_combo_button:active {
+    background-image: none !important;
+	background: var(--ck-color-button-default-focus-background);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.cke .cke_button_on {
+    border: none !important;
+    /*padding: 4px 6px !important;*/
+	padding: 4px;
+}
+
+.cke .cke_button_on:hover,
+.cke .cke_button_on:focus,
+.cke .cke_button_on:active {
+	background: var(--ck-color-button-on-focus-background);
+}
+
+.cke a.cke_button_disabled:hover,
+.cke a.cke_button_disabled:focus,
+.cke a.cke_button_disabled:active {
+    background-image: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.cke .cke_toolbar_separator {
+	/*margin-right: var(--ck-spacing-small);*/
+	margin-top: 0;
+	/*margin-left: 0;*/
+	margin-left: -1px;
+    width: 1px !important;
+    height: 39.78px !important;
+}
+
+.cke a.cke_button.jsplus_bootstrap_button_red:hover,
+.cke a.cke_button.jsplus_bootstrap_button_red:focus,
+.cke a.cke_button.jsplus_bootstrap_button_red:active {
+    background: #ffd9d9 !important;
+}
+
+.cke_toolgroup a.cke_button:last-child:after,
+.cke_toolgroup a.cke_button.cke_button_disabled:hover:last-child:after {
+    border-right: none !important;
+    background-color: red !important;
+}
+
+.cke .cke_combo:after {
+    /*border-right: none;*/
+}
+
+.cke .cke_combo_on a.cke_combo_button,
+.cke .cke_combo_off a.cke_combo_button:hover,
+.cke .cke_combo_off a.cke_combo_button:focus,
+.cke .cke_combo_off a.cke_combo_button:active {
+    background-color: #e0e0e0 !important;
+
+    /*padding: 1px 0 2px 0 !important;
+    margin: 2px 6px 1px 0 !important;*/
+}
+
+.cke .cke_combo_text {
+    line-height: 24px !important;
+}
+
+.cke a.cke_button_disabled .cke_button_icon,
+.cke a.cke_button_disabled .cke_button_arrow {
+    /*opacity: 0.13 !important;*/
+	opacity: var(--ck-disabled-opacity);
+}
+
+.cke_dialog_background_cover {
+    background-color: black !important;
+}
+
+a.cke_dialog_ui_button {
+    display: inline-block !important;
+    /*box-sizing: content-box !important;*/
+    cursor: pointer !important;
+    text-align: left !important;
+    overflow: hidden !important;
+    color: #111 !important;
+    border: 1px solid #bbb !important;
+    border-bottom: 1px solid #999 !important;
+    background-color: white !important;
+    font-size:15px !important;
+    line-height: 18px !important;
+    border-radius: 0 !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    border-radius: 0 !important;
+    height: auto !important;
+    padding: 4px 12px 4px 12px !important;
+    /*min-width: 50px !important;*/
+	min-width: 80px!important;
+    text-align: center !important;
+    /*margin-top: 5px !important;*/
+}
+
+span.cke_dialog_ui_button {
+    padding: 0 !important;
+    min-width: 50px !important;
+    text-align: center !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+}
+
+a.cke_dialog_ui_button:hover,
+a.cke_dialog_ui_button:focus,
+a.cke_dialog_ui_button:active {
+    background-color: #007FFF !important;
+    border-color: #007FFF !important;
+    text-decoration: none !important;
+}
+
+a.cke_dialog_ui_button:hover > span,
+a.cke_dialog_ui_button:focus > span,
+a.cke_dialog_ui_button:active > span {
+    background-color: #007FFF !important;
+    color: white !important;
+}
+
+.cke_dialog .cke_resizer {
+    margin-top: 30px !important;
+}
+
+.cke_dialog_ui_hbox > td > a.cke_dialog_ui_button {
+    /*margin-top: 20px !important;*/
+}
+
+.cke_dialog_footer_buttons .cke_dialog_ui_hbox > td > a.cke_dialog_ui_button {
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
+}
+
+.cke_dialog_ui_input_text {
+    border-radius: 0 !important;
+}
+.cke_dialog_ui_input_text:focus {
+    border: 1px solid #419fff !important;
+    outline: none !important;
+    outline-offset: 0 !important;
+}
+
+.cke_button_icon { image-rendering: pixelated !important;}
+
+.cke_editable.cke_editable_inline[data-type="wrap"]
+{
+	outline: none;
+}
+
+/*-- Border for combo --*/
+
+.cke_combo {
+	border-right: 1px solid #bcbcbc;
+	margin-left: -1px;
+}

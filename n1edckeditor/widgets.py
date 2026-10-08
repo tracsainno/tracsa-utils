@@ -1,61 +1,49 @@
-from ckeditor.widgets import CKEditorWidget
+"""CKEditor 4 + N1ED.
 
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+    N1EDCKEditor4Widget   bundled CKEditor 4.22.1 (no django-ckeditor needed)
+    N1EDCKEditorWidget    CKEditor from django-ckeditor (pip install tracsa_utils[ckeditor])
+"""
+from django.templatetags.static import static
+
+from n1ed.widgets import N1EDEditorWidget, language
+
+from .options import N1ED_REMOVE_PLUGINS, upload_options
+
+STATIC = 'n1edckeditor/'
 
 
-class N1EDCKEditorWidget(CKEditorWidget):
-    def __init__(
-        self,
-        config_name='default',
-        extra_plugins=['N1ED-editor'],
-        remove_plugins='iframe',
-        external_plugin_resources=[(
-            'N1ED-editor',
-            f'{settings.STATIC_URL}plugins/N1ED-editor/',
-            'plugin.js',
-        )],
-        *args,
-        **kwargs,
-    ):
-        super().__init__(
-            config_name,
-            extra_plugins,
-            external_plugin_resources,
-            *args,
-            **kwargs,
-        )
-        api_key = getattr(settings, 'N1ED_CKEDITOR_KEY', '')
+class N1EDCKEditor4Widget(N1EDEditorWidget):
+    editor = 'ckeditor4'
+    scripts = [
+        STATIC + 'ckeditor4/ckeditor.js',
+        STATIC + 'fixups.js',
+        'n1ed/csrf.js',
+    ]
 
-        api_key = api_key or self.config.pop('api_key', None) or ''
-        if api_key:
-            self.config['apiKey'] = api_key
+    def default_config(self):
+        return {
+            'extraPlugins': 'N1ED-editor',
+            'removePlugins': ','.join(N1ED_REMOVE_PLUGINS),
+            'skin': 'n1theme',
+            'allowedContent': True,
+            'versionCheck': False,
+            'language': language(),
+            'height': 400,
+            'width': '100%',
+        }
 
-        remove_plugins = remove_plugins or self.config.pop(
-            'remove_plugins', None) or ''
-        if remove_plugins:
-            self.config['removePlugins'] = remove_plugins
+    def upload_config(self, url):
+        return upload_options(url)
 
-        self.config['allowedContent'] = True
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['attrs']['data-n1ed-basepath'] = static(STATIC + 'ckeditor4/')
+        return context
 
-        n1ed_flmngr_conf = getattr(settings, 'N1ED_CKEDITOR_FLMNGR_CONFIG', None)
 
-        if n1ed_flmngr_conf:
-            if isinstance(n1ed_flmngr_conf, dict):
-                if 'accessKey' in n1ed_flmngr_conf:
-                    pass
-                else:
-                    raise ImproperlyConfigured('No accessKey found in your configuration')
-                if 'urlFileManager' in n1ed_flmngr_conf:
-                    pass
-                else:
-                    raise ImproperlyConfigured('No urlFileManager found in your configuration')
-                if 'urlFiles' in n1ed_flmngr_conf:
-                    pass
-                else:
-                    raise ImproperlyConfigured('No urlFiles found in your configuration')
-                self.config['Flmngr'] = n1ed_flmngr_conf
-            else:
-                raise ImproperlyConfigured(
-                    'N1ED_CKEDITOR_FLMNGR_CONFIG must be a dictionary type.'
-                )
+def __getattr__(name):
+    # Imported on demand so the bundled widget works without django-ckeditor.
+    if name == 'N1EDCKEditorWidget':
+        from .django_ckeditor import N1EDCKEditorWidget
+        return N1EDCKEditorWidget
+    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')

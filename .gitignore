@@ -97,3 +97,6 @@ __pycache__/
 
 ### vscode ###
 .vscode
+
+### node ###
+node_modules/
